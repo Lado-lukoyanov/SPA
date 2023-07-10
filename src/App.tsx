@@ -1,24 +1,57 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
+import { Converter } from "./components/Converter/Converter";
+import { RatesTable } from "./components/RatesTable/RatesTable";
 
 function App() {
+  const [tabs, setTab] = useState(0);
+
+  const handleTabChange = (index: number) => {
+    setTab(index);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{
+      display: "flex",
+      flexWrap: "wrap",
+      justifyContent: "center",
+    }}>
+      <div style={{ width: "100%" }}>
+        <div style={{ position: "relative" }}>
+          <Tabs selectedIndex={tabs} onSelect={handleTabChange}>
+            <TabList>
+              <Tab>Converter</Tab>
+              <Tab>Rates</Tab>
+            </TabList>
+
+            <TabPanel>
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 5,
+              }}>
+                <Converter />
+              </div>
+            </TabPanel>
+
+            <TabPanel>
+              <div style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: 5,
+              }}>
+                <RatesTable />
+              </div>
+            </TabPanel>
+
+          </Tabs>
+        </div>
+      </div>
     </div>
   );
 }
